@@ -140,31 +140,45 @@ def main():
         Actividades_Extracurriculares = extracurricular_activities * 100/5
         Acoso = bullying * 100/5
 
-        #Define la importancia de cada variable (ejemplo)
-        importancia_variables = {
-            'Factores Sociales': Apoyo_Social + Presión_Pares + Actividades_Extracurriculares + Acoso /4,
-            'Factores Académicos': Rendimiento_Academico + Carga_de_Estudio + Relacion_Profesor_Estudiante + Preocupaciones_Futuras_Carrera / 4,
-            'Factores Ambientales': Nivel_Ruido + Condiciones_Vida + Nivel_Seguridad + Necesidades_Basicas / 4,
-            'Factores Fisiológicos': Dolor_Cabeza + Presion_Sanguinea + Calidad_Sueño + Problema_Respiratorio / 4,
-            'Factores Psicológicos': Nivel_Ansiedad + Autoestima + Historia_Salud_Mental + Depresión / 4
-        }
+        factores_psicológicos = (Nivel_Ansiedad + Autoestima + Historia_Salud_Mental + Depresión) / 4
+        factores_fisiologicos = (Dolor_Cabeza + Presion_Sanguinea + Calidad_Sueño + Problema_Respiratorio) / 4
+        factores_ambientales = (Nivel_Ruido + Condiciones_Vida + Nivel_Seguridad + Necesidades_Basicas) / 4
+        factores_académicos = (Rendimiento_Academico + Carga_de_Estudio + Relacion_Profesor_Estudiante + Preocupaciones_Futuras_Carrera) / 4
+        factores_sociales = (Apoyo_Social + Presión_Pares + Actividades_Extracurriculares + Acoso) / 4
 
+        prom_factors = (factores_psicológicos + factores_fisiologicos + factores_ambientales + factores_académicos + factores_sociales)
+
+        # Cálculo de la importancia de cada factor
+        importancia_variables = {
+            'Factores Psicológicos': (((factores_psicológicos * 100) / prom_factors)),
+            'Factores Fisiológicos': (((factores_fisiologicos * 100) / prom_factors)),
+            'Factores Ambientales': (((factores_ambientales * 100) / prom_factors)),
+            'Factores Académicos': (((factores_académicos * 100) / prom_factors)),
+            'Factores Sociales': (((factores_sociales * 100) / prom_factors))
+        }
         # Título y descripción
-        st.title("Histograma Comparativo  de Factores con mayor Influencia al estrés")
+        st.title("Histograma Comparativo de Factores con mayor Influencia al estrés")
         st.write("Visualización comparativa de la importancia de cada factor en el sistema de evaluación del estrés académico.")
 
-        # Obtén los nombres de las variables y sus importancias
-        nombres_variables = list(importancia_variables.keys())
+        # Obtén los nombres de los factores y sus importancias
+        nombres_factores = list(importancia_variables.keys())
         importancias = list(importancia_variables.values())
 
-        # Crear el histograma comparativo
+        # Crear el histograma comparativo con etiquetas de porcentaje
         fig, ax = plt.subplots()
-        ax.barh(nombres_variables, importancias, color='skyblue')
-        ax.set_xlabel('Importancia')
-        ax.set_title('Importancia de los factores')
-        st.pyplot(fig)
+        bars = ax.barh(nombres_factores, importancias, color='mediumseagreen')
 
-               
+        # Agregar etiquetas de porcentaje a cada barra
+        for bar, importancia in zip(bars, importancias):
+            ax.text(bar.get_width() - 5, bar.get_y() + bar.get_height()/2, f'{importancia:.2f}%', 
+                    ha='center', va='center', color='white')
+        # Configurar etiquetas y título del gráfico
+        ax.set_xlabel('Influencia Promedio (%)')
+        ax.set_ylabel('Factores')
+        ax.set_title('Influencia de los Factores en el Estrés Académico')
+
+        # Mostrar el histograma
+        st.pyplot(fig)
 if __name__ == '__main__':
     main()
 
