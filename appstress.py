@@ -129,8 +129,8 @@ def main():
         Problema_Respiratorio = breathing_problem * 100/5
         Nivel_Ruido = noise_level * 100/5
         Condiciones_Vida = living_conditions * 100/5
-        Nivel_Seguridad = safety * 100/5  # Elimina la coma al final de esta línea
-        Necesidades_Basicas = basic_needs * 100/5  # Elimina la coma al final de esta línea
+        Nivel_Seguridad = safety * 100/5  
+        Necesidades_Basicas = basic_needs * 100/5  
         Rendimiento_Academico = academic_performance * 100/5
         Carga_de_Estudio = study_load * 100/5
         Relacion_Profesor_Estudiante = teacher_student_relationship * 100/5
@@ -179,6 +179,21 @@ def main():
 
         # Mostrar el histograma
         st.pyplot(fig)
+
+        # Determinar el promedio más alto
+        promedio_mas_alto = max(factores_psicológicos, factores_fisiologicos, factores_ambientales, factores_académicos, factores_sociales)
+
+        # Imprimir el resultado
+        if promedio_mas_alto == factores_psicológicos:
+            st.success(f"Los factores psicológicos, son los que más influyen en su nivel de estrés.")
+        elif promedio_mas_alto == factores_fisiologicos:
+            st.success(f"Los factores fisiológicos, son los que más influyen en su nivel de estrés.")
+        elif promedio_mas_alto == factores_ambientales:
+            st.success(f"Los factores ambientales, son los que más influyen en su nivel de estrés.")
+        elif promedio_mas_alto == factores_académicos:
+            st.success(f"Los factores académicos, son los que más influyen en su nivel de estrés.")
+        else:
+            st.success(f"Los factores sociales, son los que más influyen en su nivel de estrés.")
 if __name__ == '__main__':
     main()
 
