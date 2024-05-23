@@ -118,7 +118,7 @@ def main():
         else: 
             st.success(f"Su nivel de estrés es: Alto")
         
-        #Parte grafica
+        #Promedios de atributos y factores de estrés académico
         Nivel_Ansiedad = anxiety_level * 100/21
         Autoestima = self_esteem * 100/30
         Historia_Salud_Mental = mental_health_history * 100/1
